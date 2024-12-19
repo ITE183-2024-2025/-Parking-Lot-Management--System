@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Reservation System</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8; /* Light grayish-blue background */
+            color: #333;
+        }
+        h1 {
+            margin-top: 20px;
+            font-size: 2.5em;
+            color: #2c3e50; /* Darker gray-blue */
+        }
+        p {
+            font-size: 1.1em;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        /* Parking Lot Container */
+        .parking-lot {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            height: 500px; /* Fixed height for consistent display */
+            background: url('Parking.jpg') no-repeat center center; /* Adjust path if necessary */
+            background-size: cover; /* Ensure the image covers the container */
+            border: 2px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Fallback if image is missing */
+        .parking-lot {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+            background: url('Parking.jpg') no-repeat center center;
+            background-size: contain;
+            border: 2px solid #333;
+            margin-top: 20px;
+            aspect-ratio: 1.5 / 1; /* Adjust based on the image dimensions */
+        }
+
+        /* Parking Spot Styles */
+        .spot {
+            position: absolute;
+            width: 3.5%; /* Adjust spot size */
+            height: 8%; /* Adjust height */
+            cursor: pointer;
+            background-color: rgba(0, 128, 0, 0.8); /* Green with transparency */
+            border: 1px solid #008000; /* Darker green border */
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #fff;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+        .spot:hover {
+            transform: scale(1.1); /* Slight zoom effect */
+        }
+        .spot.taken {
+            background-color: rgba(255, 0, 0, 0.8); /* Red for taken spots */
+            border: 1px solid #d32f2f; /* Darker red border */
+            cursor: not-allowed;
+        }
+
+        /* Footer Section */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #888;
+        }
+        footer a {
+            color: #3498db; /* Blue link */
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Parking Reservation System</h1>
+    <p>Click on an available parking spot to reserve it.</p>
+
+    <div class="parking-lot">
+        <!-- Row 1 -->
+        <div class="spot" id="1" style="top: 12%; left: 27.5%;">1</div>
+        <div class="spot" id="2" style="top: 12%; left: 33%;">2</div>
+        <div class="spot" id="3" style="top: 12%; left: 38.4%;">3</div>
+        <div class="spot" id="4" style="top: 12%; left: 43.8%;">4</div>
+        <div class="spot" id="5" style="top: 12%; left: 49.3%;">5</div>
+        <div class="spot" id="6" style="top: 12%; left: 54.5%;">6</div>
+        <div class="spot" id="7" style="top: 12%; left: 60%;">7</div>
+        <div class="spot" id="8" style="top: 12%; left: 65.5%;">8</div>
+        <div class="spot" id="9" style="top: 12%; left: 70.8%;">9</div>
+
+        <!-- Row 2 -->
+        <div class="spot" id="10" style="top: 31%; left: 27.5%;">10</div>
+        <div class="spot" id="11" style="top: 31%; left: 33%;">11</div>
+        <div class="spot taken" id="12" style="top: 31%; left: 38.4%;">12</div>
+        <div class="spot" id="13" style="top: 31%; left: 43.8%;">13</div>
+        <div class="spot" id="14" style="top: 31%; left: 49.3%;">14</div>
+        <div class="spot" id="15" style="top: 31%; left: 54.5%;">15</div>
+        <div class="spot taken" id="16" style="top: 31%; left: 60%;">16</div>
+        <div class="spot" id="17" style="top: 31%; left: 65.5%;">17</div>
+        <div class="spot" id="18" style="top: 31%; left: 70.8%;">18</div>
+
+        <!-- Row 3 -->
+        <div class="spot" id="19" style="top: 61%; left: 27.5%;">19</div>
+        <div class="spot" id="20" style="top: 61%; left: 33%;">20</div>
+        <div class="spot" id="21" style="top: 61%; left: 38.4%;">21</div>
+        <div class="spot" id="22" style="top: 61%; left: 43.8%;">22</div>
+        <div class="spot" id="23" style="top: 61%; left: 49.3%;">23</div>
+        <div class="spot" id="24" style="top: 61%; left: 54.5%;">24</div>
+        <div class="spot" id="25" style="top: 61%; left: 60%;">25</div>
+        <div class="spot" id="26" style="top: 61%; left: 65.5%;">26</div>
+        <div class="spot" id="27" style="top: 61%; left: 70.8%;">27</div>
+
+        <!-- Row 4 -->
+        <div class="spot" id="28" style="top: 79%; left: 27.5%;">28</div>
+        <div class="spot" id="29" style="top: 79%; left: 33%;">29</div>
+        <div class="spot" id="30" style="top: 79%; left: 38.4%;">30</div>
+        <div class="spot" id="31" style="top: 79%; left: 43.8%;">31</div>
+        <div class="spot taken" id="32" style="top: 79%; left: 49.3%;">32</div>
+        <div class="spot" id="33" style="top: 79%; left: 54.5%;">33</div>
+        <div class="spot" id="34" style="top: 79%; left: 60%;">34</div>
+        <div class="spot" id="35" style="top: 79%; left: 65.5%;">35</div>
+        <div class="spot" id="36" style="top: 79%; left: 70.8%;">36</div>
+    </div>
+
+    <footer>
+        &copy; 2024 Team Offline | <a href="https://github.com/orgs/ITE183-2024-2025/teams/team-offline/members" target="_blank" rel="noopener noreferrer">Contact Us</a>
+    </footer>
+    
+    <script>
+        // Select all parking spots
+        const parkingSpots = document.querySelectorAll('.spot');
+    
+        // Add event listener to each spot
+        parkingSpots.forEach(spot => {
+            spot.addEventListener('click', () => {
+                if (spot.classList.contains('taken')) {
+                    // If spot is taken, show a styled alert
+                    alert(`🚫 Spot ${spot.id} is already taken. Please choose another spot.`);
+                } else {
+                    // Confirm reservation
+                    const reserve = confirm(`🅿️ Do you want to reserve Spot ${spot.id}?`);
+                    if (reserve) {
+                        // Mark as taken and style the spot
+                        spot.classList.add('taken');
+                        spot.style.backgroundColor = "rgba(255, 0, 0, 0.8)";
+    
+                        // Notify user
+                        alert(`✅ Spot ${spot.id} has been reserved successfully!`);
+                    }
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>
